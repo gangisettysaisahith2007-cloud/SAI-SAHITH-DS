@@ -1,0 +1,25 @@
+#include <stdio.h>
+int main() {
+    int a[50],n,ch,pos,val,i;
+    printf("Enter size: "); scanf("%d",&n);
+    for(i=0;i<n;i++) scanf("%d",&a[i]);
+
+    do {
+        printf("\n1.Insert 2.Delete 3.Display 4.Exit: ");
+        scanf("%d",&ch);
+
+        if(ch==1) { // Insert
+            printf("Pos & Value: "); scanf("%d%d",&pos,&val);
+            for(i=n;i>=pos;i--) a[i]=a[i-1];
+            a[pos-1]=val; n++;
+        }
+        else if(ch==2) { // Delete
+            printf("Pos: "); scanf("%d",&pos);
+            for(i=pos-1;i<n-1;i++) a[i]=a[i+1];
+            n--;
+        }
+        else if(ch==3) { // Display
+            for(i=0;i<n;i++) printf("%d ",a[i]);
+        }
+    } while(ch!=4);
+}

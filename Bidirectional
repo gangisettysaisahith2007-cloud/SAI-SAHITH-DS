@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *prev, *next;
+};
+
+// create new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->prev = newNode->next = NULL;
+    return newNode;
+}
+
+// insert at end
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next != NULL)
+        temp = temp->next;
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+// display forward
+void displayForward(struct Node* head) {
+    printf("Forward: ");
+    while (head != NULL) {
+        printf("%d ", head->data);
+        if (head->next == NULL) break; // keep last node reference
+        head = head->next;
+    }
+    printf("\n");
+}
+
+// display backward
+void displayBackward(struct Node* tail) {
+    printf("Backward: ");
+    while (tail != NULL) {
+        printf("%d ", tail->data);
+        tail = tail->prev;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    insertEnd(&head, 10);
+    insertEnd(&head, 20);
+    insertEnd(&head, 30);
+    insertEnd(&head, 40);
+
+    displayForward(head);
+
+    // move to last node for backward display
+    struct Node* tail = head;
+    while (tail->next != NULL) tail = tail->next;
+
+    displayBackward(tail);
+
+    return 0;
+}
